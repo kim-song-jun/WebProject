@@ -25,9 +25,9 @@ ResultView.render = function (data = []) {
 
 ResultView.getSearchResultsHtml = function (data) {
   return data.reduce((html,item) =>{
-    html += this.getSearchResultsHtml(item)
+    html += this.getSearchItemHtml(item)
     return html
-  }, '<ul>') + '</ul>'
+  }, `<ul>`) + `</ul>`
 }
 
 ResultView.getSearchItemHtml = function (item) {

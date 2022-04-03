@@ -25,7 +25,7 @@ FormView.bindEvents = function () {
 
 
 // 키 입력하는 부분
-FormView.onKeyup = function(e){
+FormView.onKeyup = function(e) {
     const enter = 13
     // 만약 입력한 버튼이 있을 경우? => showResetBtn에서 인자로 들어감
     this.showResetBtn(this.inputEl.value.length)

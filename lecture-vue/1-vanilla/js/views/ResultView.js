@@ -20,21 +20,23 @@ ResultView.render = function (data = []) {
   // 데이터가 있을경우 / 없을경우
   // 배열의 길이가 있을경우
   this.el.innerHTML = data.length ? this.getSearchResultsHtml(data) : this.messages.NO_RESULT
-  // this.show()
+  this.show()
 }
 
 ResultView.getSearchResultsHtml = function (data) {
-  return data.reduce((html,item) =>{
+  return data.reduce((html, item) => {
     html += this.getSearchItemHtml(item)
     return html
-  }, `<ul>`) + `</ul>`
+  }, '<ul>') + '</ul>'
 }
 
+
 ResultView.getSearchItemHtml = function (item) {
-  return `<li> 
-  <img src="${item.image}"> 
-  <p>${item.name}</p> 
+  return `<li>
+    <img src="${item.image}" />
+    <p>${item.name}</p>
   </li>`
 }
+
 
 export default ResultView

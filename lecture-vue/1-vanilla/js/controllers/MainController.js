@@ -24,8 +24,8 @@ export default{
       .on('@click', e=> this.onClickKeyword(e.detail.keyword))
 
     HistoryView.setup(document.querySelector('#search-history'))
-      .on('@clikc', e=> this.onClickHistory(e.detail.keyword))
-
+      .on('@click', e=> this.onClickHistory(e.detail.keyword))
+      .on('@remove', e=> this.onRemoveHistory(e.detail.keyword))
     ResultView.setup(document.querySelector('#search-result'))
 
     this.selectedTab = '추천 검색어'
@@ -33,15 +33,16 @@ export default{
   },
 
   renderView() {
-    console.log(tag,'renderView()')
+    //console.log(tag,'renderView()')
     TabView.setActiveTab(this.selectedTab)
 
     if (this.selectedTab === '추천 검색어') {
       this.fetchSearchKeyword()
+      HistoryView.hide()
     } else {
-      this.fetchHistoryKeyword()
+      this.fetchSearchHistory()
+      KeywordView.hide()
     }
-
     ResultView.hide()
   },
 
@@ -50,17 +51,17 @@ export default{
       KeywordView.render(data)
     })
   },
-  fetchHistoryKeyword(){
+  fetchSearchHistory(){
     HistoryModel.list().then(data=>{
-      HistoryView.render(data)
+      HistoryView.render(data).bindRemoveBtn()
     })
-
   },
 
   search(query) {
     // console.log(tag, 'search()', query)
     // search api
     FormView.setValue(query)
+    HistoryModel.add(query)
     SearchModel.list(query).then(data => {
       this.onSearchResult(data)
     })
@@ -74,7 +75,7 @@ export default{
   },
 
   onResetForm() {
-    console.log(tag,'onResetFrom()')
+    //console.log(tag,'onResetFrom()')
     this.renderView()
     //ResultView.hide()
     //TabView.show()
@@ -84,11 +85,13 @@ export default{
   onSearchResult(data) {
     TabView.hide()
     KeywordView.hide()
+    HistoryView.hide()
     ResultView.render(data)
   },
 
   onChangeTab(tabName) {
-    debugger
+    this.selectedTab = tabName
+    this.renderView()
   },
 
   onClickKeyword(keyword) {
@@ -96,7 +99,12 @@ export default{
   },
 
   onClickHistory(keyword){
-    console.log(tag,'')
+    // console.log(tag,'')
     this.search(keyword)
+  },
+
+  onRemoveHistory(keyword) {
+    HistoryModel.remove(keyword)
+    this.renderView()
   }
 }

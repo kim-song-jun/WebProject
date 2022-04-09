@@ -1,4 +1,4 @@
-import SearchModel from "./models/SearchModel"
+import SearchModel from "./models/SearchModel.js"
 
 new Vue({
   el: '#app',
@@ -8,11 +8,17 @@ new Vue({
     // 양방향 바인딩이 됨
     // => view-Model은 양방향 바인딩을 지원한다.
     query: '',
+    // 검색결과 표현 (T/F)
+    submitted: false,
     // 검색결과 데이터 
-    searchResult: []
+    searchResult: [],
+    tabs: ['추천 검색어', '최근 검색어'],
+    selectedTab: ''
+  },
+  created() {
+    this.selectedTab = this.tabs[0]
   },
   methods: {
-
     // 검색 후 enter가 눌렸을때
     onSubmit(e) {
       this.search()
@@ -23,12 +29,17 @@ new Vue({
     onReset() {
       this.query = ''
       // todo 검색결과를 숨기는 ... 무언가를 해야함
-      debugger
+      this.submitted = false
+      this.searchResult = []
     },
     search() {
       SearchModel.list().then(data => {
+        this.submitted = true
         this.searchResult = data
       })
+    },
+    onClickTab(tab) {
+      this.selectedTab = tab
     }
   } 
 })

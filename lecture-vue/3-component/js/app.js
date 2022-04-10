@@ -1,6 +1,9 @@
 import SearchModel from "./models/SearchModel.js"
 import KeywordModel from "./models/KeywordModel.js"
 import HistoryModel from "./models/HistoryModel.js"
+
+import FormComponent from "./components/FormComponent.js"
+
 new Vue({
   el: '#app',
   data: {
@@ -18,6 +21,9 @@ new Vue({
     keywords: [],
     history: []
   },
+  components: {
+    'search-form':FormComponent
+  },
   created() {
     this.selectedTab = this.tabs[0]
     this.fetchKeyword()
@@ -25,7 +31,8 @@ new Vue({
   },
   methods: {
     // 검색 후 enter가 눌렸을때
-    onSubmit(e) {   
+    onSubmit(query) {
+      this.query=query
       this.search()
     },
     onKeyup() {

@@ -14,7 +14,8 @@
     </header>
 
     <div class="container">      
-      <search-form v-bind:value="query" v-on:@submit="onSubmit"></search-form>
+      <search-form v-bind:value="query" v-on:@submit="onSubmit"
+      v-on:@reset="onReset"></search-form>
 
       <div v-if="submitted">
         <div v-if="searchResult.length">

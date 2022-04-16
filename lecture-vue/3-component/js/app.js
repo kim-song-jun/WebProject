@@ -3,6 +3,10 @@ import KeywordModel from "./models/KeywordModel.js"
 import HistoryModel from "./models/HistoryModel.js"
 
 import FormComponent from "./components/FormComponent.js"
+import ResultComponent from "./components/ResultComponent.js"
+import ListComponent from "./components/ListComponent.js"
+import TabComponent from "./components/TabComponent.js"
+
 
 new Vue({
   el: '#app',
@@ -22,7 +26,10 @@ new Vue({
     history: []
   },
   components: {
-    'search-form':FormComponent
+    'search-form': FormComponent,
+    'search-result': ResultComponent,
+    'list': ListComponent,
+    'tabs': TabComponent
   },
   created() {
     this.selectedTab = this.tabs[0]
@@ -36,7 +43,7 @@ new Vue({
       this.search()
     },
     onKeyup() {
-      if(!this.query.length) this.onReset()
+      
     },
     onReset() {
       this.query = ''

@@ -25,7 +25,7 @@ new Vue({
   },
   methods: {
     // 검색 후 enter가 눌렸을때
-    onSubmit(e) {
+    onSubmit(e) {   
       this.search()
     },
     onKeyup() {

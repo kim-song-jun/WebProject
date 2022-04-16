@@ -6,6 +6,12 @@ export default {
       inputValue: this.value
     }
   },
+  watch: {
+    // view 모델을 감시하고 있다가 그 값이 변경되면 실행되는 함수
+    value(newVal, oldVal) {
+      this.inputValue = newVal
+    }
+  },
   methods: {
     onSubmit() {
       // trim == 공백 제거 함수

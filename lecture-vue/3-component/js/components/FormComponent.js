@@ -23,7 +23,7 @@ export default {
     },
     onReset() {
       this.inputValue = ''
-      this.$emit('reset')
+      this.$emit('@reset')
     }
   }
 }

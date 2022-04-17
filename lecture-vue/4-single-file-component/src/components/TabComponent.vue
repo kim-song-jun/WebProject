@@ -2,7 +2,9 @@
   <ul class="tabs">
     <li
       v-for="tab in tabs"
+      
       v-bind:class="{active: tab === selectedTab}"
+      v-bind:key="tab.id"
       v-on:click="onClickTab(tab)"
     >
       {{tab}}

@@ -14,9 +14,9 @@
   -->
   <!-- HTML 속성도 데이터 바인딩 가능 -->
   <!-- <h4 class="red" style="color: blue"> -->
-  원룸샵
-  <div>
-    <img src="C:\Users\USER\OneDrive\문서\WebProject\makeForVue\vuedongsan\src\assets\logo.png">
+  <!-- <div>원룸샵</div> -->
+  <!-- <div>
+    <img src="">
     <div v-for="price,index in price1" :key="index">
       <h4 :style="스타일">
         {{products[index]}}
@@ -27,8 +27,8 @@
           click
         </button>
         <span>신고수 : {{num[index]}}</span>
-        <!-- vue 문법 => 데이터 넣는방법 -->
-        <!-- 
+        vue 문법 => 데이터 넣는방법
+        
           데이터 바인딩 하는 이유
           1. HTML에 하드코딩 해놓으면 나중에 변경이 어려움
           2. Vue의 실시간 자동 렌더링 쓰려면 해야함
@@ -36,9 +36,9 @@
           Vue는 data를 변경하면 실시간으로 data와 관련된 HTML에 실시간으로 반영됨 
           장점: 웹앱같은걸 만들수 있음 -> 무언가 조작을 하면 HTML이 바뀌면서 동작함
         -->
-      </p>
+      <!--</p>
     </div>
-  </div>
+  </div> -->
 
 </template>
 

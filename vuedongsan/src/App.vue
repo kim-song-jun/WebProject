@@ -8,8 +8,10 @@
 
   <div class="black-bg" v-if="uiStatus == true">
     <div class="white-bg" >
-      <h4>상세페이지</h4>
-      <p>상세페이지 내용</p>
+      <img :src="oneRooms[uiInfo].image" style="width:100%">
+      <h4>{{oneRooms[uiInfo].title}}</h4>
+      <p>{{oneRooms[uiInfo].content}}</p>
+      <p>{{oneRooms[uiInfo].price}} 원</p>
       <button @click="uiStatus = false">닫기</button>
     </div>
   </div>
@@ -20,9 +22,11 @@
   </div> -->
 
   <div v-for="(item,index) in oneRooms" :key="index">
-    <img :src="item.image" class="room-img">
-    <h4 @click="uiStatus = true">{{item.title}}</h4>
-    <p>{{item.price}} 만원</p>
+    <img :src="item.image" class="room-img" style="width:70%">
+    <div class="">
+      <h4 @click="uiStatus = true, uiInfo = index">{{item.title}}</h4>
+      <p>{{item.price}} 만원</p>
+    </div>
   </div>
 
 </template>
@@ -39,14 +43,15 @@ export default {
       // ex) 가격데이터
       // object 자료 형식
       // {자료이름 : 자료 내용}
-      price1: 60,
-      price2: 70,
-      prices: [60,70,80],
-      products: ['역삼동 원룸','천호동 원룸','마포구 원룸'],
-      스타일 : 'color:blue',
+      // price1: 60,
+      // price2: 70,
+      // prices: [60,70,80],
+      // products: ['역삼동 원룸','천호동 원룸','마포구 원룸'],
+      // 스타일 : 'color:blue',
       menus: ['Home','Shop','About'],
       score: [0,0,0],
       uiStatus: false,
+      uiInfo: 0,
       oneRooms: dataList
     }
   },
@@ -96,9 +101,11 @@ div{
 }
 
 .menu{
-  background: darkslateblue;
+  position: fixed; 
+  width: 100%;
+  background:rgba(72,61,139,1);
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 .menu a{
   color: white;

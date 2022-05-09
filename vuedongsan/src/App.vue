@@ -1,41 +1,37 @@
 <template>
+
   <!-- <h1>원룸샵</h1> -->
-  <div class="menu">
-    <a v-for="menu in menus" :key="menu">{{menu}}</a>
-    <!-- <a>Product </a> -->
-    <!-- <a>About</a>/ -->
+  <!-- <div class="start" :class="{ end : uiStatus }">
+    <Modal 
+    :oneRooms="oneRooms" :uiInfo="uiInfo" :uiStatus="uiStatus" 
+    @closeModal="uiStatus=$event"/>
+  </div> -->
+  <div class="start" :class="{end:uiStatus}">
+    <transition name="fade">
+      <Modal 
+      :oneRooms="oneRooms" :uiInfo="uiInfo" :uiStatus="uiStatus" 
+      @closeModal="uiStatus=$event"/>
+    </transition>
   </div>
 
-  <Discount></Discount>
+  <div class="menu">
+    <a v-for="menu in menus" :key="menu">{{menu}}</a>
+  </div>
 
-  <!-- <div class="black-bg" v-if="uiStatus == true">
-    <div class="white-bg" >
-      <img :src="oneRooms[uiInfo].image" style="width:100%">
-      <h4>{{oneRooms[uiInfo].title}}</h4>
-      <p>{{oneRooms[uiInfo].content}}</p>
-      <p>{{oneRooms[uiInfo].price}} 원</p>
-      <button @click="uiStatus = false">닫기</button>
-    </div>
-  </div> -->
+  <Discount v-if="showDiscount == true"
+  :amount="amount"/>
 
+  <div>
+    <button @click="priceLowSort">가격낮은순 정렬</button>
+    <button @click="priceHighSort">가격높은순 정렬</button>
+    <!-- <button @click="nameSort">이름 정렬</button> -->
+    <button @click="returnSort">원래대로</button>
+  </div>
 
-  <Modal :oneRooms="oneRooms" :uiInfo="uiInfo" :uiStatus="uiStatus" @click="uiStatus = false"/>
-
-  <!-- <div v-for="(item, index) in products" :key="index">
-    <h4>{{products[index]}}</h4>
-    <p>{{prices[index]}}</p>
-  </div> -->
-
-  <Card v-for="(item,index) in oneRooms" :key="index" 
+  <Card 
+  v-for="(item,index) in oneRooms" :key="index" 
   :oneRooms="oneRooms[index]"
-  @click="uiStatus = true, uiInfo = index"/>
-  <!-- <div v-for="(item,index) in oneRooms" :key="index">
-    <img :src="item.image" class="room-img" style="width:70%">
-    <div class="">
-      <h4 @click="uiStatus = true, uiInfo = index">{{item.title}}</h4>
-      <p>{{item.price}} 만원</p>
-    </div>
-  </div> -->
+  @openModal="uiStatus=true; uiInfo=index"/>
 
 </template>
 
@@ -45,6 +41,7 @@ import dataList from './data/post.js'
 import Discount from './components/Discount.vue'
 import Modal from './components/Modal.vue'
 import Card from './components/Card.vue'
+
 
 export default {
   name: 'App',
@@ -58,19 +55,54 @@ export default {
       score: [0,0,0],
       uiStatus: false,
       uiInfo: 0,
-      oneRooms: dataList
+      oneRooms: [...dataList],
+      oneRoomsOrign: [...dataList],
+      showDiscount: true,
+      amount : 30,
     }
   },
   methods: {
     increase(i){
       this.score[i]++;
-    }
+    },
+    priceLowSort(){
+      this.oneRooms.sort(function(a,b){
+        return a.price - b.price
+      })
+    },
+    priceHighSort(){
+      this.oneRooms.sort(function(a,b){
+        return b.price - a.price
+      })
+    },
+    // nameSort(){
+      //   this.oneRooms.sort(function(a,b){
+        //     return a.title - b.title
+    //   })
+    // },
+    returnSort(){
+      [...this.oneRooms] = [...this.oneRoomsOrign]
+    },
   },
+  // mounted() {
+  //   setTimeout(()=>{
+  //     this.showDiscount = false
+  //   },2000);
+  // },
+  // 이런기능? page가 로딩시 30퍼센트 할인 1초마다 1씩 감소
   components: {
-    Discount,
-    Modal,
-    Card,
-  }
+    Discount: Discount,
+    Modal: Modal,
+    Card: Card,
+  },
+  mounted() {
+    setInterval(()=>{
+      if (this.amount == 0){
+        return
+      }
+      this.amount--;
+    },1000)
+  },
 }
 </script>
 
@@ -128,4 +160,32 @@ div{
   padding: 10px;
 
 }
+.start{
+  opacity: 0;
+  transition: all 1s;
+}
+.end{
+  opacity: 1;
+}
+
+.fade-enter-form {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all 1s;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-leave-form {
+  opacity: 1;
+}
+.fade-leave-active {
+  transition: all 1s;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+
 </style>

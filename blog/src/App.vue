@@ -1,25 +1,27 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Vuelog</a>
+      <router-link to ="/" class="navbar-brand">
+            Vuelog
+      </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link to="/">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <router-link to="/" class="nav-link active" aria-current="page">
+              Home
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/list">
-              <a class="nav-link" href="#">List</a>
+            <router-link to="/list" class="nav-link">
+              List
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/detail/0">
-              <a class="nav-link" href="#">Detail</a>
+            <router-link to="/detail/0" class="nav-link">
+              Detail
             </router-link>
           </li>
           <li class="nav-item dropdown">
@@ -53,7 +55,8 @@ export default {
 },
   data() {
     return {
-      blogData: blog
+      blogData: blog,
+      underLine : "text-decoration: none;"
     }
   },
 }
@@ -67,5 +70,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 0px;
+}
+a{
+  text-decoration: none;
 }
 </style>

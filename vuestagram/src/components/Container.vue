@@ -1,64 +1,116 @@
 <template>
   <div v-if="step == 0">
     <Post v-for="item in instaData" :key="item.id" :instaData="item" />
+    <div class="d-grid gap-2" v-if="index < 2">
+      <button type="button" class="btn btn-secondary" @click="more">
+        More
+      </button>
+    </div>
   </div>
 
   <!-- 필터선택페이지 -->
   <div v-if="step == 1">
-    <div class="upload-image"></div>
+    <div class="upload-image" :style="{ backgroundImage: `url(${url})` }"></div>
     <div class="filters">
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
+      <FilterBox
+        :url="url"
+        v-for="item in this.filtersName"
+        :key="item.id"
+        :filtersName="item"
+      >
+      </FilterBox>
     </div>
   </div>
 
   <!-- 글작성페이지 -->
   <div v-if="step == 2">
-    <div class="upload-image"></div>
+    <div class="upload-image" :style="{ backgroundImage: `url(${url})` }"></div>
     <div class="write">
-      <textarea class="write-box">write!</textarea>
+      <textarea
+        class="write-box"
+        v-model="write"
+        @change="$emit('write', write)"
+      ></textarea>
+      <!-- <textarea class="write-box" @input="$emit('write',$event.target.value)"></textarea> -->
     </div>
   </div>
-  <button
-    type="button"
-    class="btn btn-primary btn-lg btn-group-lg"
-    @click="$emit('curstep', 0)"
-  >
-    Post
-  </button>
-  <button
-    type="button"
-    class="btn btn-primary btn-lg btn-group-lg"
-    @click="$emit('curstep', 1)"
-  >
-    Filter
-  </button>
-  <button
-    type="button"
-    class="btn btn-primary btn-lg btn-group-lg"
-    @click="$emit('curstep', 2)"
-  >
-    Write
-  </button>
+  <!-- <div style="margin-block: 10px; text-align: center">
+    <button
+      style="margin-right: 5px"
+      type="button"
+      class="btn btn-primary btn-lg btn-group-lg"
+      @click="$emit('curstep', 0)"
+    >
+      Post
+    </button>
+    <button
+      style="margin-right: 5px"
+      type="button"
+      class="btn btn-primary btn-lg btn-group-lg"
+      @click="$emit('curstep', 1)"
+    >
+      Filter
+    </button>
+    <button
+      style="margin-right: 5px"
+      type="button"
+      class="btn btn-primary btn-lg btn-group-lg"
+      @click="$emit('curstep', 2)"
+    >
+      Write
+    </button>
+  </div> -->
 </template>
 
 <script>
+import FilterBoxVue from "./FilterBox.vue";
 import PostVue from "./Post.vue";
 
 export default {
   name: "container",
   components: {
     Post: PostVue,
+    FilterBox: FilterBoxVue,
   },
   props: {
     instaData: Array,
     step: Number,
+    index: Number,
+    url: String,
+    more: Function,
   },
   data() {
-    return {};
+    return {
+      write: "write!",
+      filtersName: [
+        "aden",
+        "_1977",
+        "brannan",
+        "brooklyn",
+        "clarendon",
+        "earlybird",
+        "gingham",
+        "hudson",
+        "inkwell",
+        "kelvin",
+        "lark",
+        "lofi",
+        "maven",
+        "mayfair",
+        "moon",
+        "nashville",
+        "perpetua",
+        "reyes",
+        "rise",
+        "slumber",
+        "stinson",
+        "toaster",
+        "valencia",
+        "walden",
+        "willow",
+        "xpro2",
+      ],
+    };
   },
 };
 </script>

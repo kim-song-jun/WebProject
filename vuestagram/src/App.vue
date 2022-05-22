@@ -1,29 +1,38 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li @click="step--">Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step < 2" @click="step++">Next</li>
+    </ul>
+    <ul class="header-button-right">
+      <li v-if="step == 2" @click="publish">Publish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :instaData="instaData" :step="step" @curstep="selectStep" />
+  <Container
+    :instaData="instaData"
+    :step="step"
+    @curstep="selectStep"
+    :url="url"
+    @write="write"
+    :more="more"
+    :index = "index"
+  />
 
-  <div class="d-grid gap-2">
-    <button
-      type="button"
-      class="btn btn-secondary btn-lg btn-group-lg"
-      @click="more"
-    >
-      Info
-    </button>
-  </div>
+
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input
+        @change="upload"
+        type="file"
+        accept="image/*"
+        id="file"
+        class="inputfile"
+      />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
@@ -52,6 +61,9 @@ export default {
       instaData: data,
       step: 0,
       currentButtonClick: 0,
+      index: 0,
+      url: "",
+      writes: "write"
     };
   },
   methods: {
@@ -65,8 +77,32 @@ export default {
           this.index++;
         });
     },
-    selectStep(step){
+    selectStep(step) {
       this.step = step;
+    },
+    upload(e) {
+      let file = e.target.files;
+      // console.log(file[0].type);
+      this.url = URL.createObjectURL(file[0]);
+      // console.log(url)
+      this.step = 1;
+    },
+    publish() {
+      var myPublish = {
+        name: "John Doe",
+        userImage: "https://placeimg.com/200/200/people",
+        postImage: this.url,
+        likes: 20,
+        date: "Apr 20",
+        liked: false,
+        content: this.writes,
+        filter: "clarendon"
+      };
+      this.instaData.unshift(myPublish);
+      this.step = 0;
+    },
+    write(write){
+      this.writes = write;
     }
   },
 };

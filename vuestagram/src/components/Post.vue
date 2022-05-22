@@ -1,25 +1,33 @@
 <template>
   <div class="post">
     <div class="post-header">
-      <div class="profile" :style="{backgroundImage: `url(${instaData.userImage})`}"></div>
-      <span class="profile-name">{{instaData.name}}</span>
+      <div
+        class="profile"
+        :style="{ backgroundImage: `url(${instaData.userImage})` }"
+      ></div>
+      <span class="profile-name">{{ instaData.name }}</span>
     </div>
-    <div class="post-body" :style="{backgroundImage: `url(${instaData.postImage})`}"></div>
+    <div
+      class="post-body"
+      :style="{ backgroundImage: `url(${instaData.postImage})` }"
+    ></div>
     <div class="post-content">
-      <p>{{instaData.likes}} likes</p>
-      <p><strong>{{instaData.name}}</strong> {{instaData.content}}</p>
-      <p class="date">{{instaData.date}}</p>
+      <p>{{ instaData.likes }} likes</p>
+      <p>
+        <strong>{{ instaData.name }}</strong> {{ instaData.content }}
+      </p>
+      <p class="date">{{ instaData.date }}</p>
     </div>
-</div> 
+  </div>
 </template>
 
 <script>
-export default {  
-  name: 'post',
-  props:{
+export default {
+  name: "post",
+  props: {
     instaData: Array,
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -60,5 +68,5 @@ export default {
   font-size: 11px;
   color: grey;
   margin-top: -8px;
-} 
+}
 </style>

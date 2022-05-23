@@ -10,7 +10,10 @@
 
   <!-- 필터선택페이지 -->
   <div v-if="step == 1">
-    <div class="upload-image" :style="{ backgroundImage: `url(${url})` }"></div>
+    <div
+      :class="`${this.selectFilter} upload-image`"
+      :style="{ backgroundImage: `url(${url})` }"
+    ></div>
     <div class="filters">
       <FilterBox
         :url="url"
@@ -24,7 +27,10 @@
 
   <!-- 글작성페이지 -->
   <div v-if="step == 2">
-    <div class="upload-image" :style="{ backgroundImage: `url(${url})` }"></div>
+    <div
+      :class="`${this.selectFilter} upload-image`"
+      :style="{ backgroundImage: `url(${url})` }"
+    ></div>
     <div class="write">
       <textarea
         class="write-box"
@@ -63,11 +69,11 @@
 </template>
 
 <script>
-import FilterBoxVue from "./FilterBox.vue";
-import PostVue from "./Post.vue";
+import FilterBoxVue from './FilterBox.vue';
+import PostVue from './Post.vue';
 
 export default {
-  name: "container",
+  name: 'container',
   components: {
     Post: PostVue,
     FilterBox: FilterBoxVue,
@@ -78,37 +84,38 @@ export default {
     index: Number,
     url: String,
     more: Function,
+    selectFilter: String,
   },
   data() {
     return {
-      write: "write!",
+      write: 'write!',
       filtersName: [
-        "aden",
-        "_1977",
-        "brannan",
-        "brooklyn",
-        "clarendon",
-        "earlybird",
-        "gingham",
-        "hudson",
-        "inkwell",
-        "kelvin",
-        "lark",
-        "lofi",
-        "maven",
-        "mayfair",
-        "moon",
-        "nashville",
-        "perpetua",
-        "reyes",
-        "rise",
-        "slumber",
-        "stinson",
-        "toaster",
-        "valencia",
-        "walden",
-        "willow",
-        "xpro2",
+        'aden',
+        '_1977',
+        'brannan',
+        'brooklyn',
+        'clarendon',
+        'earlybird',
+        'gingham',
+        'hudson',
+        'inkwell',
+        'kelvin',
+        'lark',
+        'lofi',
+        'maven',
+        'mayfair',
+        'moon',
+        'nashville',
+        'perpetua',
+        'reyes',
+        'rise',
+        'slumber',
+        'stinson',
+        'toaster',
+        'valencia',
+        'walden',
+        'willow',
+        'xpro2',
       ],
     };
   },

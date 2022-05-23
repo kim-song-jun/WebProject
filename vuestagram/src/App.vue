@@ -3,11 +3,11 @@
     <ul class="header-button-left">
       <li @click="step--">Cancel</li>
     </ul>
-    <ul class="header-button-right">
-      <li v-if="step < 2" @click="step++">Next</li>
+    <ul v-if="step < 2" class="header-button-right">
+      <li @click="step++">Next</li>
     </ul>
-    <ul class="header-button-right">
-      <li v-if="step == 2" @click="publish">Publish</li>
+    <ul v-if="step == 2" class="header-button-right" style="margin-right: 15px">
+      <li @click="publish">Publish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
@@ -19,10 +19,9 @@
     :url="url"
     @write="write"
     :more="more"
-    :index = "index"
+    :index="index"
+    :selectFilter="this.selectFilter"
   />
-
-
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -47,12 +46,12 @@
 </template>
 
 <script>
-import ContainerVue from "./components/Container.vue";
-import data from "./data/data.js";
-import axios from "axios";
+import ContainerVue from './components/Container.vue';
+import data from './data/data.js';
+import axios from 'axios';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Container: ContainerVue,
   },
@@ -62,8 +61,9 @@ export default {
       step: 0,
       currentButtonClick: 0,
       index: 0,
-      url: "",
-      writes: "write"
+      url: '',
+      writes: 'write',
+      selectFilter: '',
     };
   },
   methods: {
@@ -82,28 +82,31 @@ export default {
     },
     upload(e) {
       let file = e.target.files;
-      // console.log(file[0].type);
       this.url = URL.createObjectURL(file[0]);
-      // console.log(url)
       this.step = 1;
     },
     publish() {
       var myPublish = {
-        name: "John Doe",
-        userImage: "https://placeimg.com/200/200/people",
+        name: 'John Doe',
+        userImage: 'https://placeimg.com/200/200/people',
         postImage: this.url,
         likes: 20,
-        date: "Apr 20",
+        date: 'Apr 20',
         liked: false,
         content: this.writes,
-        filter: "clarendon"
+        filter: this.selectFilter,
       };
       this.instaData.unshift(myPublish);
       this.step = 0;
     },
-    write(write){
+    write(write) {
       this.writes = write;
-    }
+    },
+  },
+  mounted() {
+    this.emitter.on('fire', (a) => {
+      this.selectFilter = a;
+    });
   },
 };
 </script>
@@ -176,7 +179,7 @@ ul {
 }
 #app {
   box-sizing: border-box;
-  font-family: "consolas";
+  font-family: 'consolas';
   margin-top: 60px;
   width: 100%;
   max-width: 460px;
@@ -285,7 +288,7 @@ select {
   text-transform: none;
 }
 
-[role="button"] {
+[role='button'] {
   cursor: pointer;
 }
 
@@ -296,20 +299,20 @@ select:disabled {
   opacity: 1;
 }
 
-[list]:not([type="date"]):not([type="datetime-local"]):not([type="month"]):not([type="week"]):not([type="time"])::-webkit-calendar-picker-indicator {
+[list]:not([type='date']):not([type='datetime-local']):not([type='month']):not([type='week']):not([type='time'])::-webkit-calendar-picker-indicator {
   display: none !important;
 }
 
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button;
 }
 button:not(:disabled),
-[type="button"]:not(:disabled),
-[type="reset"]:not(:disabled),
-[type="submit"]:not(:disabled) {
+[type='button']:not(:disabled),
+[type='reset']:not(:disabled),
+[type='submit']:not(:disabled) {
   cursor: pointer;
 }
 :root {
@@ -356,11 +359,11 @@ button:not(:disabled),
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
   --bs-body-bg-rgb: 255, 255, 255;
-  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-font-sans-serif: system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+    'Liberation Mono', 'Courier New', monospace;
   --bs-gradient: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.15),

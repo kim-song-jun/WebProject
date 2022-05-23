@@ -1,4 +1,5 @@
 <template>
+<div class="container mt-4">
   <div>
     <h5 @click="$router.push('/detail/0')">
     {{blogData[0].title}}</h5>
@@ -12,6 +13,7 @@
     <h5 @click="$router.push('/detail/2')">{{blogData[2].title}}</h5>
     <p>{{blogData[2].date}}</p>
   </div>
+</div>
 </template>
 
 <script>

@@ -37,6 +37,8 @@
     </div>
   </nav>
 
+
+
   <router-view :blogData="blogData"></router-view>
   
 </template>
